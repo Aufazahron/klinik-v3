@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Practitioner extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
+
+    protected $guard_name = 'web';
 
     protected $table = 'practitioners';
 
