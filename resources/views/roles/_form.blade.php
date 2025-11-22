@@ -19,7 +19,7 @@
                 <input type="checkbox" id="admin-access" class="form-check-input" />
                 <label class="form-check-label" for="admin-access">Administrator Access</label>
             </div>
-            <small class="form-text text-muted">Centang untuk memilih semua permission (hanya efek di UI).</small>
+            <!-- <small class="form-text text-muted">Centang untuk memilih semua permission (hanya efek di UI).</small> -->
         </div>
     </div>
 </div>

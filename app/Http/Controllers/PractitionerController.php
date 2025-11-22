@@ -25,15 +25,22 @@ class PractitionerController extends Controller
             });
         }
 
-        // Filter by role (Spatie)
+        // Filter by role (kolom role di tabel practitioners)
         if ($request->filled('role')) {
-            $query->role($request->role);
+            $query->where('role', $request->role);
         }
 
         $practitioners = $query->orderBy('created_at', 'desc')->paginate(15);
         $roles = Role::where('guard_name', 'web')->orderBy('name')->get();
+        
+        // Ambil nilai unik dari kolom role di tabel practitioners untuk filter
+        $practitionerRoles = Practitioner::whereNotNull('role')
+            ->distinct()
+            ->pluck('role')
+            ->sort()
+            ->values();
 
-        return view('practitioners.index', compact('practitioners', 'roles'));
+        return view('practitioners.index', compact('practitioners', 'roles', 'practitionerRoles'));
     }
 
     /**

@@ -22,8 +22,8 @@
                 <label class="focus-label">Role</label>
                 <select class="select floating" name="role">
                     <option value="">Semua Role</option>
-                    @foreach($roles as $role)
-                        <option value="{{ $role->name }}" {{ request('role') == $role->name ? 'selected' : '' }}>{{ $role->name }}</option>
+                    @foreach($practitionerRoles as $roleValue)
+                        <option value="{{ $roleValue }}" {{ request('role') == $roleValue ? 'selected' : '' }}>{{ ucfirst($roleValue) }}</option>
                     @endforeach
                 </select>
             </div>

@@ -75,6 +75,27 @@
                         <li class="{{ request()->routeIs('roles.*') ? 'active' : '' }}">
                             <a href="{{ route('roles.index') }}"><i class="fa fa-shield"></i> <span>Manajemen Role</span></a>
                         </li>
+                        <li class="{{ request()->routeIs('insurances.*') ? 'active' : '' }}">
+                            <a href="{{ route('insurances.index') }}"><i class="fa fa-id-card-alt"></i> <span>Manajemen Asuransi</span></a>
+                        </li>
+                        <li class="{{ request()->routeIs('departments.*') ? 'active' : '' }}">
+                            <a href="{{ route('departments.index') }}">
+                                <i class="fa fa-hospital-o"></i>
+                                <span>Manajemen Poli</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->routeIs('patients.*') ? 'active' : '' }}">
+                            <a href="{{ route('patients.index') }}">
+                                <i class="fa fa-users"></i>
+                                <span>Manajemen Pasien</span>
+                            </a>
+                        </li>
+                        <li class="{{ request()->routeIs('encounters.*') ? 'active' : '' }}">
+                            <a href="{{ route('encounters.index') }}">
+                                <i class="fa fa-calendar-check-o"></i>
+                                <span>Pendaftaran & Antrian</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
