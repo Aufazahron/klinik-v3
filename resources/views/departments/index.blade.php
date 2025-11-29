@@ -1,73 +1,158 @@
 @extends('layouts.preclinic-app')
 
 @section('content')
-<div class="page-header">
-    <div class="row">
-        <div class="col-sm-12"><h3 class="page-title">Manajemen Poli</h3></div>
-    </div>
-</div>
+<!-- ========================
+			Start Page Content
+		========================= -->
+         
+        <div class="page-wrapper">
 
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
+            <!-- Start Content -->
+            <div class="content">
 
-<div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <h5 class="card-title mb-0">Daftar Poli</h5>
-        <a href="{{ route('departments.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Poli Baru</a>
-    </div>
-    <div class="card-body">
-        <form class="row mb-3" method="GET">
-            <div class="col-md-4">
-                <input type="text" name="q" class="form-control" placeholder="Cari poli..." value="{{ request('q') }}">
+                <!-- Start Page Header -->
+                <div class="d-flex align-items-sm-center flex-sm-row flex-column gap-2 mb-3 pb-3 border-bottom">
+                    <div class="flex-grow-1">
+                        <h4 class="fw-bold mb-0">Manajemen Poli</h4>
+                    </div>
+                    <div class="text-end d-flex">
+                        <a href="javascript:void(0);" class="btn btn-primary ms-2 fs-13 btn-md" data-bs-toggle="modal" data-bs-target="#add_role"><i class="ti ti-plus me-1"></i>Tambah</a>
+                    </div>
+				</div>
+				<!-- End Page Header -->
+
+                <div class="table-responsive">
+                    <table class="table table-nowrap">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>No</th>
+                                <th>Kode</th>
+                                <th>Nama</th>
+                                <th>Status</th>
+                                <th>Diupdate</th>
+                                <th>Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>(No)</td>
+                                <td>(Kode)</td>
+                                <td>(Nama)</td>
+                                <td>(Status)</td>
+                                <td>(Diupdate)</td>
+                                <td>
+                                    <div class="action-item">
+                                        <a href="javascript:void(0);" data-bs-toggle="dropdown">
+                                            <button type="button" class="btn btn-outline-info">Ubah</button>
+                                        </a>
+                                        <ul class="dropdown-menu p-2">
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#edit_role">Edit</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#delete_role">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                                
             </div>
-            <div class="col-md-2">
-                <button class="btn btn-outline-primary w-100" type="submit">Cari</button>
-            </div>
-        </form>
+            <!-- End Content -->
 
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Kode</th>
-                        <th>Nama</th>
-                        <th>Status</th>
-                        <th>Org ID</th>
-                        <th>Loc ID</th>
-                        <th class="text-end">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($departments as $d)
-                    <tr>
-                        <td>{{ $d->code }}</td>
-                        <td>{{ $d->name }}</td>
-                        <td>
-                            @if($d->is_active)
-                                <span class="badge bg-success">Aktif</span>
-                            @else
-                                <span class="badge bg-danger">Nonaktif</span>
-                            @endif
-                        </td>
-                        <td>{{ $d->organization_id }}</td>
-                        <td>{{ $d->location_id }}</td>
-                        <td class="text-end">
-                            <a href="{{ route('departments.edit', $d) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                            <form action="{{ route('departments.destroy', $d) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus Poli?')">
-                                @csrf @method('DELETE')
-                                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                        <tr><td colspan="6">Belum ada data poli.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <!-- Footer Start -->
+            <div class="footer text-center bg-white p-2 border-top">
+                <p class="text-dark mb-0">2025 &copy; <a href="javascript:void(0);" class="link-primary">Preclinic</a>, All Rights Reserved</p>
+            </div>
+            <!-- Footer End -->
+
         </div>
-        {{ $departments->links() }}
-    </div>
-</div>
+
+        <!-- ========================
+			End Page Content
+		========================= -->
+
+        <!-- Start Add Modal -->
+        <div id="add_role" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-dark modal-title fw-bold">New Role</h4>
+                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x"></i></button>
+                    </div>
+                    <form action="roles-and-permissions.html">
+                        <div class="modal-body">
+                            <div class="mb-0">
+                                <label class="form-label">Role<span class="text-danger ms-1">*</span></label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex align-items-center gap-1">
+                            <button type="button" class="btn btn-white border" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add New Role</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Add Modal -->
+
+        <!-- Start Add Modal -->
+        <div id="edit_role" class="modal fade">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="text-dark modal-title fw-bold">Edit Role</h4>
+                        <button type="button" class="btn-close btn-close-modal custom-btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-x"></i></button>
+                    </div>
+                    <form action="roles-and-permissions.html">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Role<span class="text-danger ms-1">*</span></label>
+                                <input type="text" class="form-control" value="Doctor">
+                            </div>
+                            <div class="mb-0">
+                                <label class="form-label">Status<span class="text-danger ms-1">*</span></label>
+                                <select class="select">
+                                    <option>Select</option>
+                                    <option selected="">Active</option>
+                                    <option>Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex align-items-center gap-1">
+                            <button type="button" class="btn btn-white border" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Add Modal -->
+
+        <!-- Start Delete Modal  -->
+        <div class="modal fade" id="delete_role">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body text-center position-relative z-1">
+                        <img src="assets/img/bg/delete-modal-bg-01.png" alt="" class="img-fluid position-absolute top-0 start-0 z-n1">
+                        <img src="assets/img/bg/delete-modal-bg-02.png" alt="" class="img-fluid position-absolute bottom-0 end-0 z-n1">
+                        <div class="mb-3">
+                            <span class="avatar avatar-lg bg-danger text-white"><i class="ti ti-trash fs-24"></i></span>
+                        </div>
+                        <h5 class="fw-bold mb-1">Delete Confirmation</h5>
+                        <p class="mb-3">Are you sure want to delete?</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="javascript:void(0);" class="btn btn-light position-relative z-1 me-3" data-bs-dismiss="modal">Cancel</a>
+                            <a href="roles-and-permissions.html" class="btn btn-danger position-relative z-1">Yes, Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Delete Modal  -->
 @endsection
 
